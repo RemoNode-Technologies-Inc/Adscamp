@@ -22,7 +22,7 @@ class CampaignResource extends JsonResource
             'to_date'=>$this->to_date,
             'total_budget'=>$this->total_budget,
             'daily_budget'=>$this->daily_budget,
-            'images'=>URL::to($this->images),
+            'image'=>$this->image,
             'updated_at'=>$this->updated_at,
             'created_at'=>$this->created_at,
         ];

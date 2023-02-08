@@ -7,6 +7,7 @@ use App\Models\Campaign;
 use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
 use App\Http\Resources\CampaignResource;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
@@ -38,28 +39,25 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        $campaign = new Campaign();
-        $filename=[];
-        if($request->hasFile('image'))
-        {
-            $files = $request->file('image');
-            foreach($files as $file){
-            // $ext  = $file->getClientOriginalExtension();
-            // $imagefullname = md5(rand(1000,10000)).$ext;
-            // $imageUrl = 'assets/uploads/product/'.$imagefullname;
-            // $file->move('assets/uploads/product/',$imagefullname);
-            $filename[] = $file->store('products');
-            $campaign->image = implode('|',$filename) ;
-            }
+        // $campaign = new Campaign();
+        // $filename=[];
+        // if($request->hasFile('image'))
+        // {
+        //     $files = $request->file('image');
+        //     foreach($files as $file){
+        //     $filename[] = $file->store('campaigns');
+        //     $campaign->image = implode('|',$filename) ;
+        //     }
 
-        }
+        // }
 
-        $campaign->name         = $request->name;
-        $campaign->from_date    = $request->from_date;
-        $campaign->to_date      = $request->to_date;
-        $campaign->total_budget = $request->total_budget;
-        $campaign->daily_budget = $request->daily_budget;
-        $campaign->save();
+        // $campaign->name         = $request->name;
+        // $campaign->from_date    = $request->from_date;
+        // $campaign->to_date      = $request->to_date;
+        // $campaign->total_budget = $request->total_budget;
+        // $campaign->daily_budget = $request->daily_budget;
+        // $campaign->save();
+        $campaign = Campaign::create($request->all());
         return new CampaignResource($campaign);
     }
 
