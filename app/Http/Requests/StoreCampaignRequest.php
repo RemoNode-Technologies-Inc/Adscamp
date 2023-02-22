@@ -24,7 +24,12 @@ class StoreCampaignRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'daily_budget' => 'required|numeric',
+            'total_budget' => 'required|numeric',
+            'from_date' => 'required|date',
+            'to_date' => 'required|date',
+            'image' => 'required|image',
         ];
     }
 }

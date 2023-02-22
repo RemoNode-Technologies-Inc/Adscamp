@@ -20,7 +20,7 @@ return new class extends Migration
             $table->datetime('to_date');
             $table->decimal('total_budget', 8, 2);
             $table->decimal('daily_budget', 8, 2);
-            $table->json('image')->nullable();
+            $table->json('image');
             $table->timestamps();
         });
     }

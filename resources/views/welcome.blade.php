@@ -60,4 +60,3 @@
 
   </section><!-- End Hero -->
 @endsection
-

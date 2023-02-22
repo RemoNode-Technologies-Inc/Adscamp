@@ -39,25 +39,33 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        // $campaign = new Campaign();
-        // $filename=[];
-        // if($request->hasFile('image'))
-        // {
-        //     $files = $request->file('image');
-        //     foreach($files as $file){
-        //     $filename[] = $file->store('campaigns');
-        //     $campaign->image = implode('|',$filename) ;
-        //     }
+        $data = $request->all();
+         dd($data);
+        // Get the images from the request
+        $images = $request->file('image');
 
-        // }
+        // Store the images as a JSON array
+        $imagesArray = [];
+        if ($images) {
+            foreach ($images as $image) {
+                // Store the image in the public/images directory
+                $path = $image->store('public/images');
+                $imagesArray[] = $path;
+            }
+        }
 
-        // $campaign->name         = $request->name;
-        // $campaign->from_date    = $request->from_date;
-        // $campaign->to_date      = $request->to_date;
-        // $campaign->total_budget = $request->total_budget;
-        // $campaign->daily_budget = $request->daily_budget;
-        // $campaign->save();
-        $campaign = Campaign::create($request->all());
+        $data['image'] = json_encode($imagesArray);
+
+
+        // Create a new record in the database
+        $campaign = Campaign::create([
+            'name' => $data['name'],
+            'from_date' => $data['from_date'],
+            'to_date' => $data['to_date'],
+            'total_budget' => $data['total_budget'],
+            'daily_budget' => $data['daily_budget'],
+            'image' => $data['image']
+        ]);
         return new CampaignResource($campaign);
     }
 
