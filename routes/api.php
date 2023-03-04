@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\AuthAPIController;
 use App\Http\Controllers\V1\CampaignController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function(){
+    Route::post('/users/login', [AuthAPIController::class,'login']);
+    Route::post('/users/logout', [AuthAPIController::class, 'logout']);
+    Route::post('/users/register', [AuthAPIController::class, 'register']);
     Route::apiResource('campaign', CampaignController::class )->only('store','index');
 });
